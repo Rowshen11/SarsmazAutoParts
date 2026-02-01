@@ -17,8 +17,12 @@ class ProductController extends Controller
 
             });
         }
+        if($request->filled('brand')){
+            $query->where('brand_id',$request->brand);
+        }
+    
         $products = $query->latest()->paginate(12)->withQueryString();
-        return view('products.index',compact('products'));
+        return view('products.index',compact('products', 'brands'));
     }
     public function show($slug)
     {
