@@ -8,6 +8,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $brands = \App\Models\Brand::all();
         $query = Product::with(['brand', 'category'])->where('is_active',true);
         if ($request->filled('search')){
             $search = $request->input('search');
@@ -29,6 +30,11 @@ class ProductController extends Controller
         $product = Product::with(['brand', 'category'])->where('slug',$slug)->where('is_active',true)->firstOrFail();
         return view('products.show', compact('product'));
     }
+        public function about()
+        {
+            return view('pages.about');
+        }
+
 }
 
 
